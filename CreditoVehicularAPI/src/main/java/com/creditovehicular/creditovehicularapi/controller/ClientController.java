@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/clients")
+@CrossOrigin(origins = "*")
 public class ClientController {
 
     private final IClientService clientService;

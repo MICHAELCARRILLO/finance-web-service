@@ -1,5 +1,5 @@
 package com.creditovehicular.creditovehicularapi.entities;
 
 public enum GraceType {
-    T, P, N
+    T, P, S
 }

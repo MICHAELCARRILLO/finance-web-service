@@ -46,4 +46,9 @@ public class UserServiceImpl implements IUserService {
     public User findUserByEmailAndPassword(String email, String password) throws Exception {
         return userRepository.findUserByEmailAndPassword(email, password);
     }
+
+    @Override
+    public User findUserByEmail(String email) throws Exception {
+        return  userRepository.findUserByEmail(email);
+    }
 }

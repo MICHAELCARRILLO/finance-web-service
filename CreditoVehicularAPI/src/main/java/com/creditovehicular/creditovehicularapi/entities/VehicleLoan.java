@@ -21,6 +21,9 @@ public class VehicleLoan implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name="code", nullable = false)
+    private String code;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -42,20 +45,29 @@ public class VehicleLoan implements Serializable {
     @Column(name="vehicle_price", nullable = false, columnDefinition = "DECIMAL(10,2)")
     private Double vehiclePrice;
 
+    @Column(name="loan_percentage", nullable = false, columnDefinition = "DECIMAL(10,2)")
+    private Double loanPercentage;
+
     @Enumerated(EnumType.STRING)
     @Column(name="rate_type", nullable = false)
     private RateType rateType;
 
-    @Column(name="rate_amount", nullable = false, columnDefinition = "DECIMAL(10,2)")
+    @Column(name="rate_amount", nullable = false, columnDefinition = "DECIMAL(10,8)")
     private Double rateAmount;
 
-    @Column(name="desgravamen_rate", nullable = false, columnDefinition = "DECIMAL(10,2)")
+    @Column(name="rate_capitalization", nullable = false)
+    private String rateCapitalization;
+
+    @Column(name="desgravamen_rate", nullable = false, columnDefinition = "DECIMAL(10,8)")
     private Double desgravamenRate;
 
-    @Column(name="vehicle_insurance", nullable = false, columnDefinition = "DECIMAL(10,2)")
+    @Column(name="vehicle_insurance", nullable = false, columnDefinition = "DECIMAL(10,8)")
     private Double vehicleInsurance;
 
-    @Column(name="physical_shipment", nullable = false, columnDefinition = "DECIMAL(10,2)")
+    @Column(name="annual_cok", nullable = false, columnDefinition = "DECIMAL(10,8)")
+    private Double annualCok;
+
+    @Column(name="physical_shipment", nullable = false, columnDefinition = "DECIMAL(10,4)")
     private Double physicalShipment;
 
     @Column(name="payment_period", nullable = false)
@@ -71,4 +83,17 @@ public class VehicleLoan implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name="last_quota", nullable = false)
     private LastQuota lastQuota;
+
+    @Column(name="notary_costs", nullable = false, columnDefinition = "DECIMAL(10,4)")
+    private Double notaryCosts;
+
+    @Column(name="registration_costs", nullable = false, columnDefinition = "DECIMAL(10,4)")
+    private Double registrationCosts;
+
+    @Column(name="appraisal", nullable = false, columnDefinition = "DECIMAL(10,4)")
+    private Double appraisal;
+
+    @Column(name="administration_costs", nullable = false, columnDefinition = "DECIMAL(10,4)")
+    private Double administrationCosts;
+
 }

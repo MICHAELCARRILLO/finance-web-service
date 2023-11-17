@@ -18,6 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/vehicleLoans")
+@CrossOrigin(origins = "*")
 public class VehicleLoanController {
 
     private final IClientService clientService;
@@ -111,6 +112,37 @@ public class VehicleLoanController {
             }
             vehicleLoanService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    //find by user id
+    @GetMapping(value = "/user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<VehicleLoan>> findVehicleLoanByUserId(@PathVariable("userId") Long userId)   {
+        try{
+            List<VehicleLoan> vehicleLoans = vehicleLoanService.findByUserId(userId);
+            if(vehicleLoans.isEmpty()){
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(vehicleLoans, HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //find by code
+    @GetMapping(value = "/code/{code}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<VehicleLoan> findVehicleLoanByCode(@PathVariable("code") String code)   {
+        try{
+            Optional<VehicleLoan> vehicleLoan = Optional.ofNullable(vehicleLoanService.findByCode(code));
+            if(!vehicleLoan.isPresent()){
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(vehicleLoan.get(), HttpStatus.OK);
 
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

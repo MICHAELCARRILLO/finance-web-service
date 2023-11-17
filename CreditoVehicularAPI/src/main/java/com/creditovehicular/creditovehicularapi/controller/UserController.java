@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     private final IUserService userService;
@@ -70,6 +71,19 @@ public class UserController {
             if(!user.isPresent()){
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
               }
+            return new ResponseEntity<>(user.get(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping(value = "/email/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> findUserByEmail(@PathVariable("email") String email)   {
+        try{
+            Optional<User> user = Optional.ofNullable(userService.findUserByEmail(email));
+            if(!user.isPresent()){
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
             return new ResponseEntity<>(user.get(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -41,4 +41,14 @@ public class VehicleLoanServiceImpl implements IVehicleLoanService {
     public Optional<VehicleLoan> getById(Long id) throws Exception {
         return vehicleLoanRepository.findById(id);
     }
+
+    @Override
+    public List<VehicleLoan> findByUserId(Long userId) throws Exception {
+        return vehicleLoanRepository.findByUserId(userId);
+    }
+
+    @Override
+    public VehicleLoan findByCode(String code) throws Exception {
+        return vehicleLoanRepository.findByCode(code);
+    }
 }
